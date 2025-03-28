@@ -21,18 +21,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/ddd-steps-list.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
+
   }
 
   // Lit reactive properties
@@ -40,6 +29,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      steps: { type: Number },
     };
   }
 
@@ -60,16 +50,32 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
       }
+      .circle {
+          width: 200px;
+          height: 200px;
+          line-height: 200px;
+          border-radius: 50%; 
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          text-align: center;
+          color: white;
+          font-size: 16px;
+          text-transform: uppercase;
+          font-weight: 700;
+          margin: 0 auto 40px;
+          background: var(--ddd-theme-nittanyNavy);}
+
+
     `];
   }
 
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
+
+  <div class="circle">1</div>
+
+<div class="circle">1</div>`;
   }
 
   /**

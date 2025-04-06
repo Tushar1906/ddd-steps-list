@@ -21,6 +21,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
+    this.primary = false;
 
   }
 
@@ -35,7 +36,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   // Lit scoped styles
   static get styles() {
-    return [super.styles,
+    return 
     css`
       :host {
         display: block;
@@ -43,39 +44,16 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
       }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
-      }
-      .circle {
-          width: 200px;
-          height: 200px;
-          line-height: 200px;
-          border-radius: 50%; 
-          -moz-border-radius: 50%;
-          -webkit-border-radius: 50%;
-          text-align: center;
-          color: white;
-          font-size: 16px;
-          text-transform: uppercase;
-          font-weight: 700;
-          margin: 0 auto 40px;
-          background: var(--ddd-theme-nittanyNavy);}
+     
 
-
-    `];
+    `;
   }
 
   // Lit render the HTML
   render() {
     return html`
-
-  <div class="circle">1</div>
-
-<div class="circle">1</div>`;
+      <slot @slotchange=${this._onSlotChange}></slot>
+    `;
   }
 
   /**

@@ -12,7 +12,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @demo index.html
  * @element ddd-steps-list
  */
-export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
+class DddStepsList extends DDDSuper(LitElement) {
 
   static get tag() {
     return "ddd-steps-list";
@@ -66,6 +66,13 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
           font-weight: 700;
           margin: 0 auto 40px;
           background-color: var(--ddd-theme-nittanyNavy);}
+          :host([data-primary]) .circle {
+            background-color: var(--ddd-theme-nittanyNavy);
+          }
+      .step-content {
+        margin: var(--ddd-spacing-2);
+        padding: var(--ddd-spacing-4);
+      }
 
 
     `];

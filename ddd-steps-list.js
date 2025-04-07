@@ -55,7 +55,36 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       <slot @slotchange=${this._onSlotChange}></slot>
     `;
   }
+  firstUpdated() {
+    this._validateChildren();
+  }
 
+  _onSlotChange() {
+    this._validateChildren();
+  }
+  _validateChildren() {
+    const children = this.querySelectorAll("ddd-steps-list-item");
+    if (children.length === 0) {
+      console.warn("No children found");
+      return;
+    }
+    children.forEach((child, index) => {
+      child.setAttribute("step", index + 1);
+    });
+  }
+  updated (changedProperties) {
+    if (changedProperties.has("dddPrimary")) {
+      const items = this.querySelectorAll("ddd-steps-list-item");
+      items.forEach((item) => {
+        item.setAttribute("data-primary", this.dddPrimary);
+      });
+      if (this.dddPrimary) {
+        this.setAttribute("data-primary", true);
+      } else {
+        this.removeAttribute("data-primary");
+      }
+    }
+  }
   /**
    * haxProperties integration via file reference
    */

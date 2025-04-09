@@ -53,27 +53,28 @@ class DddStepsList extends DDDSuper(LitElement) {
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
       }
-      .circle {
-          width: 200px;
-          height: 200px;
-          line-height: 200px;
+      .step-circle {
+          width: 2rem;
+          height: 2rem;
           border-radius: 50%; 
-          -moz-border-radius: 50%;
-          -webkit-border-radius: 50%;
           text-align: center;
           color: white;
           font-size: 16px;
           text-transform: uppercase;
-          font-weight: 700;
-          margin: 0 auto 40px;
-          background-color: var(--ddd-theme-nittanyNavy);
+          font-weight: bold;
+          margin-right: var(--ddd-spacing-2);
+          background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
         
         }
 
 
       :host([data-primary]) .circle {
-      background-color: var(--ddd-theme-nittanyNavy);
-      color: var(--ddd-theme-nittanyWhite);
+      background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
+      color: white;
     }
     .new {
       border-left: var(--ddd-border-md);

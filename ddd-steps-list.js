@@ -81,22 +81,16 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   }
 
   updated (changedProperties) {
-    const children= Array.from(this.children);
-    let step = 0;
-    children.forEach(child => {
-      const tag = child.tagName.toLowerCase();
-      if (tag !== 'ddd-steps-list-item') {
-        this.removeChild(child);
-      } else {
-        stepCount++;
-        child.step = stepCount;
+   if (changedProperties.has('dddPrimary')) {
+      const items = this.querySelectorAll('ddd-steps-list-item');
+      items.forEach(item => {
         if (this.dddPrimary) {
-          child.setAttribute('data-primary', '');
+          item.setAttribute('data-primary', '');
         } else {
-          child.removeAttribute('data-primary');
+          item.removeAttribute('data-primary');
         }
-      }
-    });
+      });
+    }
 
   }
   /**

@@ -15,7 +15,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 class DddStepsList extends DDDSuper(LitElement) {
 
   static get tag() {
-    return "ddd-steps-list";
+    return "ddd-steps-list-item";
   }
 
   constructor() {
@@ -31,7 +31,7 @@ class DddStepsList extends DDDSuper(LitElement) {
     return {
       ...super.properties,
       title: { type: String },
-      step: { type: Number },
+      step: { type: Number, reflect: true },
     };
   }
 
@@ -48,6 +48,7 @@ class DddStepsList extends DDDSuper(LitElement) {
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
+        gap: var(--ddd-spacing-2);
       }
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
@@ -65,11 +66,24 @@ class DddStepsList extends DDDSuper(LitElement) {
           text-transform: uppercase;
           font-weight: 700;
           margin: 0 auto 40px;
-          background-color: var(--ddd-theme-nittanyNavy);}
-          :host([data-primary]) .circle {
-            background-color: var(--ddd-theme-nittanyNavy);
-          }
+          background-color: var(--ddd-theme-nittanyNavy);
+        
+        }
+
+
+      :host([data-primary]) .circle {
+      background-color: var(--ddd-theme-nittanyNavy);
+      color: var(--ddd-theme-nittanyWhite);
+    }
+    .new {
+      border-left: var(--ddd-border-md);
+      margin-left:10px;
+      border-left-style: dashed;
+      border-left-color: var(--ddd-theme-default-limestoneGray);}
+    
+
       .step-content {
+        flex: 1;
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
       }
@@ -81,8 +95,9 @@ class DddStepsList extends DDDSuper(LitElement) {
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper">
+<div class="wrapper"></div>
   <div class="step-circle">${this.step}</div>
+  <div class="new">
   <div class="step-content"><slot></slot></div>
 </div>`;
   }

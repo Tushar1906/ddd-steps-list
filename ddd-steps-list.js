@@ -21,7 +21,8 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
-    this.primary = false;
+    this.dddPrimary= false;
+
 
   }
 
@@ -29,6 +30,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   static get properties() {
     return {
       ...super.properties,
+      dddPrimary: { type: Boolean,attribute: 'ddd-primary', reflect: true },
       title: { type: String },
       steps: { type: Number },
     };
@@ -52,7 +54,9 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
+      <div class="wrapper">
       <slot @slotchange=${this._onSlotChange}></slot>
+      </div>
     `;
   }
   firstUpdated() {
@@ -63,27 +67,37 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     this._validateChildren();
   }
   _validateChildren() {
-    const children = this.querySelectorAll("ddd-steps-list-item");
-    if (children.length === 0) {
-      console.warn("No children found");
-      return;
-    }
-    children.forEach((child, index) => {
-      child.setAttribute("step", index + 1);
+    const children = Array.from(this.querySelectorAll("ddd-steps-list-item"));
+    let stepCount = 0;
+    children.forEach(child => {
+      stepCount++;
+      child.steps = stepCount;
+      if (this.dddPrimary) {
+        child.setAttribute('data-primary', '');
+      } else {
+        child.removeAttribute('data-primary');
+      }
     });
   }
+
   updated (changedProperties) {
-    if (changedProperties.has("dddPrimary")) {
-      const items = this.querySelectorAll("ddd-steps-list-item");
-      items.forEach((item) => {
-        item.setAttribute("data-primary", this.dddPrimary);
-      });
-      if (this.dddPrimary) {
-        this.setAttribute("data-primary", true);
+    const children= Array.from(this.children);
+    let step = 0;
+    children.forEach(child => {
+      const tag = child.tagName.toLowerCase();
+      if (tag !== 'ddd-steps-list-item') {
+        this.removeChild(child);
       } else {
-        this.removeAttribute("data-primary");
+        stepCount++;
+        child.step = stepCount;
+        if (this.dddPrimary) {
+          child.setAttribute('data-primary', '');
+        } else {
+          child.removeAttribute('data-primary');
+        }
       }
-    }
+    });
+
   }
   /**
    * haxProperties integration via file reference

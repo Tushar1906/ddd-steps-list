@@ -12,7 +12,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @demo index.html
  * @element ddd-steps-list
  */
-class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
+class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
     return "ddd-steps-list-item";
@@ -51,12 +51,9 @@ class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
         font-family: var(--ddd-font-navigation);
       }
       .wrapper {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-        gap: var(--ddd-spacing-2);
+        display: flex;
+        align-items: start;
+        gap: var(--ddd-spacing-2, 8px);
       }
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
@@ -64,40 +61,43 @@ class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       .step-circle {
           width: 2rem;
           height: 2rem;
+          
           border-radius: 50%; 
-          text-align: center;
+         
           color: white;
-          font-size: 16px;
-          text-transform: uppercase;
+          font-size: 1.5rem;
+          
           font-weight: bold;
-          margin-right: var(--ddd-spacing-2);
+          margin-right: var(--ddd-spacing-4, 20px);
           background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
-          display: inline-flex;
+          display: flex;
           justify-content: center;
           align-items: center;
-          margin: var(--ddd-spacing-0);
+         position: absolute;
+          margin-top: 30px;
          
 
         
         }
-        .header {
-          display: inline-flex;
-          align-items: center;
-          
+        :host([data-primary]) .step-circle {
+          background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
         }
+        
 
     .new1 {
       border-left: var(--ddd-border-md);
-      margin-left:10px;
+      margin-left:20px;
       border-left-style: dashed;
       border-left-color: var(--ddd-theme-default-limestoneGray);}
     
 
       .content {
-       display: block;
-       gap: var(--ddd-spacing-2);
-       margin-left: (--ddd-spacing-0);
-       padding: var(--ddd-spacing-2);
+        padding: var(--ddd-spacing-2, 8px);
+        margin-left: 20px;
+       
+        margin-bottom: 20px;
+      
+       
       }
       img {
         width: 100%;
@@ -114,10 +114,10 @@ class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     return html`
   <div class="wrapper">
   <div class="step-circle">${this.step}</div>
-  <div class="header">
+  
   <div class="new1">
   <div class="content"><slot></slot></div>
-  </div>
+  
   </div>
 </div>`;
   }
@@ -131,4 +131,4 @@ class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   }
 }
 
-globalThis.customElements.define(DddStepsList.tag, DddStepsList);
+globalThis.customElements.define(DddStepsListItem.tag, DddStepsListItem);

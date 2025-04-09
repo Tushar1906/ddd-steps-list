@@ -31,7 +31,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
-      children: { type: Array },
+      dddPrimary: { type: Boolean, attribute: 'ddd-primary', reflect: true },
     };
   }
 
@@ -44,17 +44,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
         font-family: var(--ddd-font-navigation);
        
       }
-      .wrapper {
-        display: block;
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-        gap: var(--ddd-spacing-2);
-      }
-      .list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--ddd-spacing-2);
-      }
+     
      
 
     `];
@@ -64,41 +54,44 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   render() {
     return html`
       <div class="wrapper">
-      <div class="list">
-        <slot id="list-slot" ></slot>
-      </div>
+      <slot @slotchange="${this._onSlotChange}"></slot>
       </div>
     `;
   }
-  updated(changedProperties) {
-    if (changedProperties.has("title")) {
-      this.countChildren();
-    }
+
+
+  firstUpdated() {
+    this._validateChildren();
   }
 
-  countChildren() {
-    const items = this.querySelectorAll("ddd-steps-list-item");
-    items.forEach((element, index) => {
-      element.count = index + 1;
-    });
+  _onSlotChange() {
+    this._validateChildren();
   }
-
-  validateChildren() {
-    const slot = this.shadowRoot.querySelector("#list-slot");
-    if (!slot) {
-      console.error("Slot #list-slot not found in shadowRoot.");
-      return;
-    }
-    const assignedElements = slot.assignedElements({
-      flatten: true,
-    }); 
-
-    assignedElements.forEach((child) => {
-      if (child.tagName.toLowerCase() !== "ddd-steps-list-item") {
-        console.warn(`Invalid tag`);
-        child.remove();
+  _validateChildren() {
+    const children = Array.from(this.querySelectorAll('ddd-steps-list-item'));
+    let stepCount = 0;
+    children.forEach(child => {
+      stepCount++;
+      child.steps = stepCount;
+      if (this.dddPrimary) {
+        child.setAttribute('data-primary', '');
+      } else {
+        child.removeAttribute('data-primary');
       }
     });
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('dddPrimary')) {
+      const items = this.querySelectorAll('ddd-steps-list-item');
+      items.forEach(item => {
+        if (this.dddPrimary) {
+          item.setAttribute('data-primary', '');
+        } else {
+          item.removeAttribute('data-primary');
+        }
+      });
+    }
   }
   /**
    * haxProperties integration via file reference

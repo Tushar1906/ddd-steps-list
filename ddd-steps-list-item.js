@@ -12,7 +12,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @demo index.html
  * @element ddd-steps-list
  */
-class DddStepsList extends DDDSuper(LitElement) {
+class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
     return "ddd-steps-list-item";
@@ -21,9 +21,14 @@ class DddStepsList extends DDDSuper(LitElement) {
   constructor() {
     super();
     this.title = "";
-    this.step = 0;
-  
-    
+    this.steps = 0;
+    this.registerLocalization({
+      context: this,
+      localesPath:
+        new URL("./locales/ddd-steps-list.ar.json", import.meta.url).href +
+        "/../",
+      locales: ["ar", "es", "hi", "zh"],
+    });
   }
 
   // Lit reactive properties
@@ -31,7 +36,7 @@ class DddStepsList extends DDDSuper(LitElement) {
     return {
       ...super.properties,
       title: { type: String },
-      step: { type: Number, reflect: true },
+      step: { type: Number, attribute: 'step', reflect: true },
     };
   }
 
@@ -46,6 +51,9 @@ class DddStepsList extends DDDSuper(LitElement) {
         font-family: var(--ddd-font-navigation);
       }
       .wrapper {
+        display: block;
+        color: var(--ddd-theme-primary);
+        background-color: var(--ddd-theme-accent);
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
         gap: var(--ddd-spacing-2);
@@ -64,29 +72,37 @@ class DddStepsList extends DDDSuper(LitElement) {
           font-weight: bold;
           margin-right: var(--ddd-spacing-2);
           background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
-          display: flex;
+          display: inline-flex;
           justify-content: center;
           align-items: center;
+          margin: var(--ddd-spacing-0);
+         
 
         
         }
+        .header {
+          display: inline-flex;
+          align-items: center;
+          
+        }
 
-
-      :host([data-primary]) .circle {
-      background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
-      color: white;
-    }
-    .new {
+    .new1 {
       border-left: var(--ddd-border-md);
       margin-left:10px;
       border-left-style: dashed;
       border-left-color: var(--ddd-theme-default-limestoneGray);}
     
 
-      .step-content {
-        flex: 1;
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
+      .content {
+       display: block;
+       gap: var(--ddd-spacing-2);
+       margin-left: (--ddd-spacing-0);
+       padding: var(--ddd-spacing-2);
+      }
+      img {
+        width: 100%;
+        height: auto;
+        margin: var(--ddd-spacing-0);
       }
 
 
@@ -96,10 +112,13 @@ class DddStepsList extends DDDSuper(LitElement) {
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper"></div>
+  <div class="wrapper">
   <div class="step-circle">${this.step}</div>
-  <div class="new">
-  <div class="step-content"><slot></slot></div>
+  <div class="header">
+  <div class="new1">
+  <div class="content"><slot></slot></div>
+  </div>
+  </div>
 </div>`;
   }
 

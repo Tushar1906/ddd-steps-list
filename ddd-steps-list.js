@@ -20,7 +20,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
+  
     this.dddPrimary= false;
 
 
@@ -42,6 +42,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       :host {
         display: block;
         font-family: var(--ddd-font-navigation);
+        
        
       }
      
@@ -70,29 +71,19 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   _validateChildren() {
     const children = Array.from(this.querySelectorAll('ddd-steps-list-item'));
     let stepCount = 0;
-    children.forEach(child => {
-      stepCount++;
+    children.forEach(child => { stepCount++;
       child.steps = stepCount;
       if (this.dddPrimary) {
         child.setAttribute('data-primary', '');
       } else {
         child.removeAttribute('data-primary');
       }
+      child.setAttribute('data-step', stepCount);
+
     });
   }
 
-  updated(changedProps) {
-    if (changedProps.has('dddPrimary')) {
-      const items = this.querySelectorAll('ddd-steps-list-item');
-      items.forEach(item => {
-        if (this.dddPrimary) {
-          item.setAttribute('data-primary', '');
-        } else {
-          item.removeAttribute('data-primary');
-        }
-      });
-    }
-  }
+
   /**
    * haxProperties integration via file reference
    */

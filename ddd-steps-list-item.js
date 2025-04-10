@@ -36,7 +36,7 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
-      step: { type: Number, attribute: 'step', reflect: true },
+      steps: { type: Number, reflect: true },
     };
   }
 
@@ -65,7 +65,7 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
           border-radius: 50%; 
          
           color: white;
-          font-size: 1.5rem;
+          font-size: 1rem;
           
           font-weight: bold;
           margin-right: var(--ddd-spacing-4, 20px);
@@ -75,6 +75,8 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
           align-items: center;
          position: absolute;
           margin-top: 30px;
+          
+        
          
 
         
@@ -113,7 +115,7 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
   render() {
     return html`
   <div class="wrapper">
-  <div class="step-circle">${this.step}</div>
+  <div class="step-circle">${this.steps}</div>
   
   <div class="new1">
   <div class="content"><slot></slot></div>

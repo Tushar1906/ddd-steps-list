@@ -64,17 +64,17 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
           
           border-radius: 50%; 
          
-          color: white;
+          color: --ddd-theme-default-white;
           font-size: 1rem;
           
-          font-weight: bold;
+          font-weight: --ddd-font-weight-bold;
           margin-right: var(--ddd-spacing-4, 20px);
           background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
           display: flex;
           justify-content: center;
           align-items: center;
          position: absolute;
-          margin-top: 30px;
+          margin-top: --ddd-spacing-8;
           
         
          
@@ -89,16 +89,16 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
 
     .new1 {
       border-left: var(--ddd-border-md);
-      margin-left:20px;
+      margin-left:--ddd-spacing-5;
       border-left-style: dashed;
       border-left-color: var(--ddd-theme-default-limestoneGray);}
       .new1::before {
         content: attr(data-step);
         position: absolute;
         left: -2.5rem;
-        top: 0;
+        top: --ddd-spacing-0;
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
-        font-weight: bold;
+        font-weight: --ddd-font-weight-bold;
         color: var(--ddd-theme-default-beaverBlue, #caccd0);
       }
      
@@ -106,15 +106,15 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
 
       .content {
         padding: var(--ddd-spacing-2, 8px);
-        margin-left: 20px;
+        margin-left: --ddd-spacing-5;
        
-        margin-bottom: 20px;
+        margin-bottom: --ddd-spacing-5;
       }
     
       
     
         .step-circle {
-          margin-right: 0;
+          margin-right: --ddd-spacing-0;
           margin-bottom: var(--ddd-spacing-2, 8px);
         }
       

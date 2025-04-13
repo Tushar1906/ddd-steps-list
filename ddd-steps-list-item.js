@@ -85,12 +85,23 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
           background-color: var(--ddd-theme-default-beaverBlue, #caccd0);
         }
         
+      
 
     .new1 {
       border-left: var(--ddd-border-md);
       margin-left:20px;
       border-left-style: dashed;
       border-left-color: var(--ddd-theme-default-limestoneGray);}
+      .new1::before {
+        content: attr(data-step);
+        position: absolute;
+        left: -2.5rem;
+        top: 0;
+        font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
+        font-weight: bold;
+        color: var(--ddd-theme-default-beaverBlue, #caccd0);
+      }
+     
     
 
       .content {
@@ -98,9 +109,15 @@ class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
         margin-left: 20px;
        
         margin-bottom: 20px;
-      
-       
       }
+    
+      
+    
+        .step-circle {
+          margin-right: 0;
+          margin-bottom: var(--ddd-spacing-2, 8px);
+        }
+      
       img {
         width: 100%;
         height: auto;

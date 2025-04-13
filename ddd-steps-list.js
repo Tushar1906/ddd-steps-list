@@ -54,7 +54,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
-      <div class="wrapper">
+    
       <slot @slotchange="${this._onSlotChange}"></slot>
       </div>
     `;
@@ -82,8 +82,12 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
     });
   }
-
-
+  _updateChildren() {
+    const children = this.querySelectorAll('ddd-steps-list-item');
+    children.forEach((child, index) => {
+      child.steps = index + 1;
+    });
+  }
   /**
    * haxProperties integration via file reference
    */
